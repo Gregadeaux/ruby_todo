@@ -1,3 +1,6 @@
 form action="/" method="POST"
   input type="text" name="task"
   input.button type="submit" value="New Task >>"
+ul.tasks
+  -@all.each do |item|
+    li.task = item[:name]
