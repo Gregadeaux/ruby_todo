@@ -1,4 +1,16 @@
 require 'sinatra'
+require 'slim'
+
 get '/' do
-  "Just Do It"
+  slim :index
+end
+
+post '/' do
+  @task = params[:task]
+  slim :task
+end
+
+get '/:task' do
+  @task = params[:task]
+  slim :task
 end
