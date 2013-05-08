@@ -23,3 +23,20 @@ get '/:task' do
   @task = params[:task]
   slim :task
 end
+
+delete '/task/:id' do
+  @items.where(:id => params[:id]).delete
+  redirect to('/')
+end
+
+post '/task/:id' do
+  @item = @items.where(:id => params[:id]).first
+  slim :task
+end
+
+put '/task/:id' do
+  @task = params[:task]
+  @items.where(:id => params[:id]).update(:name => @task)
+  redirect to('/')
+end
+  

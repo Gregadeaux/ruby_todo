@@ -1,6 +1,14 @@
 form action="/" method="POST"
   input type="text" name="task"
   input.button type="submit" value="New Task >>"
-ul.tasks
+table.tasks
   -@all.each do |item|
-    li.task = item[:name]
+    tr
+	  td.item = item[:name]
+	  td
+	    form.delete action="/task/#{item[:id]}" method="POST"
+	      input type="hidden" name="_method" value="DELETE"
+	      input type="submit" value="&times;" title="Delete Task"
+	  td
+	    form.update action="/task/#{item[:id]}" method="POST"
+	      input type="submit" value="Update" title="Update Task"

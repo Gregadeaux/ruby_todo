@@ -1,2 +1,4 @@
-h2 My Tasks
-= @task
+form action="/task/#{@item[:id]}" method="POST"
+  input type="hidden" name="_method" value="PUT"
+  input type="text" name="task" value="#{@item[:name]}"
+  input.button type="submit" value="Update Task"
