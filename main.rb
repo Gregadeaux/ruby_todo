@@ -37,9 +37,7 @@ end
 
 put '/task/:id' do
   @task = params[:task]
-  old = @items.where('id = ?', params[:id]).first
-  ps = @items.prepare(:update, :update_name, :name => :$new)
-  ps.call(:n => ps[:name], :new_n = params[:task])
+  @items.where(:id => params[:id]).update(:name => @task)
   redirect to('/')
 end
   
