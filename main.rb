@@ -9,7 +9,7 @@ before do
 end
 
 get '/' do
-  @all = DB["Select * from items"]
+  @all = DB["Select * from items Order By id"]
   slim :index
 end
 
