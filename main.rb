@@ -15,7 +15,8 @@ end
 
 post '/' do
   @task = params[:task]
-  @items.insert(:name => @task)
+  ps = @items.prepare(:insert, :insert_with_name, :name => :$n)
+  ps.call(:n => @task)
   redirect to('/')
 end
 
@@ -25,12 +26,12 @@ get '/:task' do
 end
 
 delete '/task/:id' do
-  @items.where(:id => params[:id]).delete
+  @items.where('id = ?', params[:id]).delete
   redirect to('/')
 end
 
 post '/task/:id' do
-  @item = @items.where(:id => params[:id]).first
+  @item = @items.where('id = ?', params[:id]).first
   slim :task
 end
 
