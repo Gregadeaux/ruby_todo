@@ -1,14 +1,17 @@
-form action="/" method="POST"
-  input type="text" name="task"
-  input.button type="submit" value="New Task >>"
-table.tasks
-  -@all.each do |item|
-    tr
-	  td.item = item[:name]
-	  td
+div width="90%" style="margin-left:auto; margin-right:auto"
+  form action="/" method="POST" width="auto"
+    input type="text" name="task" width="400px"
+    input.button type="submit" value="New Task >>"
+-@all.each do |item|
+  table
+	tr
+	  td.item colspan="2"
+	    = item[:name]
+	tr
+	  td width="90%" style="text-align:right"
 	    form.delete action="/task/#{item[:id]}" method="POST"
 	      input type="hidden" name="_method" value="DELETE"
-	      input type="submit" value="&times;" title="Delete Task"
-	  td
+	      input type="submit" value="Delete" title="Delete Task"
+	  td style="text-align:right"
 	    form.update action="/task/#{item[:id]}" method="POST"
 	      input type="submit" value="Update" title="Update Task"
