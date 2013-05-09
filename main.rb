@@ -4,7 +4,7 @@ require 'sequel'
 require 'pg'
 
 before do
-  DB = Sequel.postgres('d94qvgiuv0n8vi', :user=>'gnswyxprjitnfe', :password=>'7qinf5GbGQgAZq7DWFgN-ok-9h', :host=>'ec2-54-235-155-182.compute-1.amazonaws.com', :port=>5432, :max_connections=>20)
+  DB = Sequel.postgres('d94qvgiuv0n8vi', :user=>'wkvjhxxbaxwcxt', :password=>'dWyrZHuBqfrMg9MlChtWIw_KZA', :host=>'ec2-54-235-155-182.compute-1.amazonaws.com', :port=>5432, :max_connections=>20)
   @items = DB[:items];
 end
 
@@ -37,7 +37,9 @@ end
 
 put '/task/:id' do
   @task = params[:task]
-  @items.where(:id => params[:id]).update(:name => @task)
+  old = @items.where('id = ?', params[:id]).first
+  ps = @items.prepare(:update, :update_name, :name => :$new)
+  ps.call(:n => ps[:name], :new_n = params[:task])
   redirect to('/')
 end
   
